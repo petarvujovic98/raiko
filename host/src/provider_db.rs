@@ -38,6 +38,8 @@ pub struct ProviderDb {
     async_executor: Handle,
 }
 
+type StorageProofs = HashMap<Address, EIP1186AccountProofResponse>;
+
 impl ProviderDb {
     pub fn new(
         provider: ReqwestProvider,
@@ -78,7 +80,7 @@ impl ProviderDb {
         storage_keys: HashMap<Address, Vec<U256>>,
         offset: usize,
         num_storage_proofs: usize,
-    ) -> Result<HashMap<Address, EIP1186AccountProofResponse>, anyhow::Error> {
+    ) -> Result<StorageProofs, anyhow::Error> {
         let mut storage_proofs = HashMap::new();
         let mut idx = offset;
         for (address, keys) in storage_keys {
@@ -100,16 +102,7 @@ impl ProviderDb {
         Ok(storage_proofs)
     }
 
-    pub fn get_proofs(
-        &mut self,
-    ) -> Result<
-        (
-            HashMap<Address, EIP1186AccountProofResponse>,
-            HashMap<Address, EIP1186AccountProofResponse>,
-            usize,
-        ),
-        anyhow::Error,
-    > {
+    pub fn get_proofs(&mut self) -> Result<(StorageProofs, StorageProofs), anyhow::Error> {
         // Latest proof keys
         let mut storage_keys = self.initial_db.storage_keys();
         for (address, mut indices) in self.current_db.storage_keys() {
