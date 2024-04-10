@@ -16,6 +16,7 @@
 
 pub mod error;
 pub mod execution;
+pub mod metrics;
 pub mod preflight;
 pub mod provider_db;
 pub mod request;
