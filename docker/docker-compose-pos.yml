@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   raiko:
     image: gcr.io/evmchain/raiko:latest-pos
