@@ -161,7 +161,7 @@ mod tests {
     use raiko_primitives::keccak;
 
     use super::*;
-    use crate::input::{proveBlockCall, BlockMetadata, TierProof, Transition};
+    use crate::input::{proveBlockCall, TierProof};
 
     #[test]
     fn bytes_to_bytes32_test() {
